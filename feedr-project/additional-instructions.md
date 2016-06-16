@@ -4,7 +4,7 @@
 
 - You will notice that the Reddit API does not provide anything like a "content" field for each article, which the instructions call for on the article detail page. You can do whatever you want to get around this. In my implementation, I just used the article's `title` field for both the title and the content on the page, so it's repeated.
 
-- The current state of the Feedr head-start code is in this folder: tktk
+- The current state of the Feedr head-start code is in this folder, at https://github.com/jsdev2/lesson-14-in-class-finished/tree/master/feedr-project
 
 ### Here are some things I have done in my code, and some tips:
 
@@ -16,7 +16,7 @@
 
 ### Tips for next steps:
 
-- You will probably need to have access to your main array of article data from multiple places in your code, because you'll need it both to display the main feed and to display article details in the popup. How can we let all the functions get at it? By using closures! Declare an 'articles' variable (or whatever you want to call it) at the top level, and then all the rest of your functions will have access to it. Make sure not to use `var articles =` when you first populate that data when it's coming back from the Ajax call, because you want to mutate the main top-level variable, you don't want to declare a new local one. You just want to say `articles =`.
+- You will probably need to have access to your main array of article data from multiple places in your code, because you'll need it both to display the main feed and to display article details in the popup. How can we let all the functions get at it? By using closures! Declare an 'articles' variable (or whatever you want to call it) at the top level, and then all the rest of your functions will have access to it. Make sure to declare your variable using `var articles` at the top level, but don't use `var articles =` in your response handling function when your data is coming back from the Ajax call, because you want to mutate the main top-level variable, you don't want to declare a new local one. Inside the response-handling function, you just want to say `articles =`.
 
 - In order to be able to fetch the right article details when the user clicks on one of the articles in the feed, you'll need to have some way to figure out the index number of the article the person clicked on. There are many ways to do this, but here is one, which makes use of a couple of jQuery functions we haven't talked about (`.filter()`, `.index()`) to set a delegated event listener on the container for the articles, listening for when article titles are clicked on and then searching up the DOM tree to the article element, then figuring out what is the index of the article element is among all the other article elements:
 
@@ -26,7 +26,6 @@ $('#main.container').on('click', '.article a', function(event) {
   // Do what you need to do with the index
 });
 ```
-
 Alternatively, you could use a `forEach` loop to add an event listener to every item in the feed, and it could contain the appropriate index for each listener, contained in a closure:
 
 ```js
